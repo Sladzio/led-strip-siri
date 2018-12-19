@@ -45,4 +45,26 @@ app.get('/off',function(req,res) {
   });
 });
 
+app.get('/set/:id',function(req,res) {
+    var cmd = "";
+    if(req.params.id)
+    {
+        cmd = 'sudo ./rf24-RGB-remote ' + 2 + ' '+ req.params.id;
+    }
+    else
+    {
+         cmd = 'sudo ./rf24-RGB-remote ' + 4 + ' '+ 0;
+    }
+  
+  exe( cmd ,(error, stdout, stderr) => 
+  {
+     if (error)
+     {
+      throw error;
+     }
+        res.status(200);
+        res.send(stdout);
+  });
+});
+
 app.listen(3000);
