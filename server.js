@@ -9,7 +9,6 @@ app.get('/',function(req,res) {
 
 app.get('/status',function(req,res) {
   var cmd = 'sudo ' + __dirname + '/rf24-RGB-remote ' + 1 + ' '+ 0;
-  res.send(cmd);
   exe( cmd ,(error, stdout, stderr) => {
      if (error) {
       throw error;
@@ -18,4 +17,4 @@ app.get('/status',function(req,res) {
      });
 });
 
-app.listen(8081);
+app.listen(3000);
