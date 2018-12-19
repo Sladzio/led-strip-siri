@@ -19,5 +19,30 @@ app.get('/status',function(req,res) {
         res.send(stdout);
   });
 });
+app.get('/on',function(req,res) {
+  var cmd = 'sudo ./rf24-RGB-remote ' + 1 + ' '+ 1;
+  exe( cmd ,(error, stdout, stderr) => 
+  {
+     if (error)
+     {
+      throw error;
+     }
+        res.status(200);
+        res.send(stdout);
+  });
+});
+
+app.get('/off',function(req,res) {
+  var cmd = 'sudo ./rf24-RGB-remote ' + 1 + ' '+ 2;
+  exe( cmd ,(error, stdout, stderr) => 
+  {
+     if (error)
+     {
+      throw error;
+     }
+        res.status(200);
+        res.send(stdout);
+  });
+});
 
 app.listen(3000);
