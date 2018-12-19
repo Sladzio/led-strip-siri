@@ -45,7 +45,7 @@ app.get('/off',function(req,res) {
   });
 });
 
-app.get('/set/:id',function(req,res) {
+app.get('/set/:id?',function(req,res) {
     var cmd = "";
     if(req.params.id)
     {
