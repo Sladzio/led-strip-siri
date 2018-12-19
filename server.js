@@ -19,7 +19,7 @@ app.get('/status',function(req,res) {
         res.send(stdout);
   });
 });
-app.get('/on',function(req,res) {
+app.post('/on',function(req,res) {
   var cmd = 'sudo ./rf24-RGB-remote ' + 1 + ' '+ 1;
   exe( cmd ,(error, stdout, stderr) => 
   {
@@ -32,7 +32,7 @@ app.get('/on',function(req,res) {
   });
 });
 
-app.get('/off',function(req,res) {
+app.post('/off',function(req,res) {
   var cmd = 'sudo ./rf24-RGB-remote ' + 1 + ' '+ 2;
   exe( cmd ,(error, stdout, stderr) => 
   {
