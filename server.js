@@ -17,6 +17,7 @@ app.get('/status',function(req,res) {
      }
         res.status(200);
         res.send(stdout);
+        res.end();
   });
 });
 app.get('/on',function(req,res) {
@@ -29,6 +30,7 @@ app.get('/on',function(req,res) {
      }
         res.status(200);
         res.send(stdout);
+        res.end();
   });
 });
 
@@ -42,6 +44,7 @@ app.get('/off',function(req,res) {
      }
         res.status(200);
         res.send(stdout);
+        res.end();
   });
 });
 
@@ -64,6 +67,7 @@ app.get('/set/:id?',function(req,res) {
      }
         res.status(200);
         res.send(stdout);
+        res.end();
   });
 });
 
