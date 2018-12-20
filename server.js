@@ -24,7 +24,8 @@ app.get('/status',function(req,res) {
       throw error;
      }
         res.status(200);
-        res.end(stdout);
+        res.set('Content-Type', 'text/plain');
+        res.send(stdout);
   });
 });
 app.get('/on',function(req,res) {
@@ -36,7 +37,8 @@ app.get('/on',function(req,res) {
       throw error;
      }
         res.status(200);
-        res.end(stdout);
+        res.set('Content-Type', 'text/plain');
+        res.send(stdout);
   });
 });
 
@@ -49,7 +51,8 @@ app.get('/off',function(req,res) {
       throw error;
      }
         res.status(200);
-        res.end(stdout);
+        res.set('Content-Type', 'text/plain');
+        res.send(stdout);
   });
 });
 
@@ -71,7 +74,8 @@ app.get('/set/:id?',function(req,res) {
       throw error;
      }
         res.status(200);
-        res.end(stdout);
+        res.set('Content-Type', 'text/plain');
+        res.send(stdout);
   });
 });
 
