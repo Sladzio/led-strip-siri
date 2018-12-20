@@ -4,7 +4,7 @@ const exe = require('child_process').exec;
 
 app.get('/',function(req,res) {
     console.log(__dirname);
-  res.send("House Automation Server is running!");
+  res.end("House Automation Server is running!");
 });
 
 app.get('/status',function(req,res) {
@@ -16,8 +16,7 @@ app.get('/status',function(req,res) {
       throw error;
      }
         res.status(200);
-        res.send(stdout);
-        res.end();
+        res.end(stdout);
   });
 });
 app.get('/on',function(req,res) {
@@ -29,8 +28,7 @@ app.get('/on',function(req,res) {
       throw error;
      }
         res.status(200);
-        res.send(stdout);
-        res.end();
+        res.end(stdout);
   });
 });
 
@@ -43,8 +41,7 @@ app.get('/off',function(req,res) {
       throw error;
      }
         res.status(200);
-        res.send(stdout);
-        res.end();
+        res.end(stdout);
   });
 });
 
@@ -66,8 +63,7 @@ app.get('/set/:id?',function(req,res) {
       throw error;
      }
         res.status(200);
-        res.send(stdout);
-        res.end();
+        res.end(stdout);
   });
 });
 
