@@ -56,6 +56,7 @@ app.get('/set/:id?',function(req,res) {
     var cmd = "";
     if(req.params.id)
     {
+        console.log(req.params.id);
         var hex=req.params.id;
         var rgb_temp=hexRgb(hex,{format:'array'}); //convert to rgb from hex
         //encode to 24-bit RGB value
