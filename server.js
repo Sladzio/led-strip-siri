@@ -61,7 +61,7 @@ app.get('/set/:id?',function(req,res) {
         var rgb_temp=hexRgb(hex,{format:'array'}); //convert to rgb from hex
         //encode to 24-bit RGB value
         var rgb = ((rgb_temp[0]&0x0ff)<<16)|((rgb_temp[1]&0x0ff)<<8)|(rgb_temp[2]&0x0ff);
-        cmd = 'sudo .' + __dirname +'/rf24-RGB-remote ' + 2 + ' '+ req.params.id;
+        cmd = 'sudo .' + __dirname +'/rf24-RGB-remote ' + 2 + ' '+ rgb;
     }
     else
     {
