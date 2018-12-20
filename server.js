@@ -13,6 +13,7 @@ app.get('/status',function(req,res) {
   {
      if (error)
      {
+         console.log(error);
       throw error;
      }
         res.status(200);
@@ -21,11 +22,12 @@ app.get('/status',function(req,res) {
   });
 });
 app.get('/on',function(req,res) {
-  var cmd = 'sudo ./rf24-RGB-remote ' + 1 + ' '+ 1;
+  var cmd = 'sudo .' + __dirname +'/rf24-RGB-remote ' + 1 + ' '+ 1;
   exe( cmd ,(error, stdout, stderr) => 
   {
      if (error)
      {
+         console.log(error);
       throw error;
      }
         res.status(200);
@@ -35,11 +37,12 @@ app.get('/on',function(req,res) {
 });
 
 app.get('/off',function(req,res) {
-  var cmd = 'sudo ./rf24-RGB-remote ' + 1 + ' '+ 2;
+  var cmd = 'sudo .' + __dirname +'/rf24-RGB-remote ' + 1 + ' '+ 2;
   exe( cmd ,(error, stdout, stderr) => 
   {
      if (error)
      {
+         console.log(error);
       throw error;
      }
         res.status(200);
@@ -52,11 +55,11 @@ app.get('/set/:id?',function(req,res) {
     var cmd = "";
     if(req.params.id)
     {
-        cmd = 'sudo ./rf24-RGB-remote ' + 2 + ' '+ req.params.id;
+        cmd = 'sudo .' + __dirname +'/rf24-RGB-remote ' + 2 + ' '+ req.params.id;
     }
     else
     {
-         cmd = 'sudo ./rf24-RGB-remote ' + 4 + ' '+ 0;
+         cmd ='sudo .' + __dirname +'/rf24-RGB-remote ' + 4 + ' '+ 0;
     }
   
   exe( cmd ,(error, stdout, stderr) => 
