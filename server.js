@@ -2,14 +2,6 @@ var express = require('express');
 var app = express();
 const exe = require('child_process').exec;
 
-app.use(function(req, res, next){
-    res.setTimeout(120000, function(){
-        console.log('Request has timed out.');
-            res.send(408);
-        });
-
-    next();
-});
 app.get('/',function(req,res) {
     console.log(__dirname);
   res.end("House Automation Server is running!");
@@ -38,7 +30,7 @@ app.get('/on',function(req,res) {
      }
         res.status(200);
         res.set('Content-Type', 'text/plain');
-        res.send(stdout);
+        res.send("OK");
   });
 });
 
@@ -52,7 +44,7 @@ app.get('/off',function(req,res) {
      }
         res.status(200);
         res.set('Content-Type', 'text/plain');
-        res.send(stdout);
+        res.send("OK");
   });
 });
 
