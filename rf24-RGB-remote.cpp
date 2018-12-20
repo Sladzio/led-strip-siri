@@ -59,7 +59,7 @@ int main(int argc, char** argv)
                         }
                         else if (actionResponse.mode == 4)
                         {
-                            std::cout<<"#"<<std::hex<<powerStatus;
+                            std::cout<<std::hex<<powerStatus;
                         }
                         
                         return 0;
