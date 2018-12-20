@@ -26,38 +26,52 @@ int main(int argc, char** argv)
         // Setup and configure rf radio
         radio.begin();
         radio.setPALevel(RF24_PA_LOW);
-        radio.stopListening();
         radio.setPayloadSize(32);
         radio.openWritingPipe(pipes[0]);
         radio.openReadingPipe(1,pipes[1]);
-        bool ok = radio.write( &actionResponse, sizeof(actionResponse) );
-        if (!ok)
+        while(true)
         {
-           return -1;
-        }
-        else{
-            if(actionResponse.action==0)
+            radio.stopListening();
+            bool ok = radio.write( &actionResponse, sizeof(actionResponse) );
+            if (!ok)
             {
-                radio.startListening(); 
-                while(true)
+               return -1;
+            }
+            else{
+                if(actionResponse.action==0)
                 {
-                        if(radio.available())
+                    radio.startListening(); 
+                                    
+                     // Wait here until we get a response, or timeout (250ms)
+                    unsigned long started_waiting_at = millis();
+                    bool timeout = false;
+                    while ( ! radio.available() && ! timeout )
+                      if (millis() - started_waiting_at > 200 )
+                        timeout = true;
+                
+                    // Describe the results
+                    if ( !timeout )
+                    {
+                        radio.read(&powerStatus,sizeof(unsigned long));
+                        if(actionResponse.mode == 1 || actionResponse.mode == 3)
                         {
-                                radio.read(&powerStatus,sizeof(unsigned long));
-                                if(actionResponse.mode == 1 || actionResponse.mode == 3)
-                                {
-                                    std::cout<<powerStatus;
-                                }
-                                else if (actionResponse.mode == 4)
-                                {
-                                    std::cout<<std::hex<<powerStatus;
-                                }
-                                
-                                return 0;
+                            std::cout<<powerStatus;
                         }
+                        else if (actionResponse.mode == 4)
+                        {
+                            std::cout<<std::hex<<powerStatus;
+                        }
+                        
+                        return 0;
+                    }
+                    delay(1000);
+                }
+                else{
+                    return 0;
                 }
             }
         }
+      
     }
     return 0;
 }
