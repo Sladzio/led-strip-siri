@@ -22,7 +22,7 @@ int main(int argc, char** argv)
     actionResponse.mode = atoi(argv[1]);
     actionResponse.action = atoi(argv[2]);
     unsigned long  powerStatus=0;
-    int fd = open(filename, O_RDWR | O_CREAT, 0666); // open or create lockfile
+    int fd = open("locker", O_RDWR | O_CREAT, 0666); // open or create lockfile
     //check open success...
     int rc = flock(fd , LOCK_EX | LOCK_NB); // grab exclusive lock, fail if can't obtain.
     while (rc!=0)
