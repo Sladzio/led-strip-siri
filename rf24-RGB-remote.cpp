@@ -28,6 +28,7 @@ int main(int argc, char** argv)
     while (rc!=0)
     {
         delay(50);
+        rc = flock(fd , LOCK_EX | LOCK_NB); 
     }
     if (argv[1])
     {
