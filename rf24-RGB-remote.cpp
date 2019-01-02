@@ -5,6 +5,7 @@
 #include <string>
 #include <unistd.h>
 #include <RF24/RF24.h>
+#include <sys/file.h>
 
 using namespace std;
 
@@ -21,6 +22,13 @@ int main(int argc, char** argv)
     actionResponse.mode = atoi(argv[1]);
     actionResponse.action = atoi(argv[2]);
     unsigned long  powerStatus=0;
+    int fd = open(filename, O_RDWR | O_CREAT, 0666); // open or create lockfile
+    //check open success...
+    int rc = flock(fd , LOCK_EX | LOCK_NB); // grab exclusive lock, fail if can't obtain.
+    while (rc!=0)
+    {
+        delay(50);
+    }
     if (argv[1])
     {
         // Setup and configure rf radio
@@ -35,10 +43,11 @@ int main(int argc, char** argv)
             bool ok = radio.write( &actionResponse, sizeof(actionResponse) );
             if (!ok)
             {
+               flock(fd , LOCK_UN | LOCK_NB);
                return -1;
             }
             else{
-                if(actionResponse.action==0)
+                if(actionResponse.action==0 && actionResponse.mode != 2)
                 {
                     radio.startListening(); 
                                     
@@ -61,17 +70,19 @@ int main(int argc, char** argv)
                         {
                             std::cout<<std::hex<<powerStatus;
                         }
-                        
+                        flock(fd , LOCK_UN | LOCK_NB);
                         return 0;
                     }
                     delay(1000);
                 }
                 else{
+                    flock(fd , LOCK_UN | LOCK_NB);
                     return 0;
                 }
             }
         }
       
     }
+    flock(fd , LOCK_UN | LOCK_NB);
     return 0;
 }
